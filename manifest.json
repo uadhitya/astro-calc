@@ -1,0 +1,27 @@
+{
+    "name": "AstroCalc Multi-Tradisi",
+    "short_name": "AstroCalc",
+    "description": "Astrologi Barat, Ba Zi, dan Primbon Jawa untuk ikhtiar mengenal diri",
+    "start_url": "/astro-calc/",
+    "display": "standalone",
+    "background_color": "#1a237e",
+    "theme_color": "#1a237e",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "assets/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
