@@ -608,4 +608,979 @@
                 { name: 'Aries', symbol: '♈', element: 'Fire', ruler: 'Mars' },
                 { name: 'Taurus', symbol: '♉', element: 'Earth', ruler: 'Venus' },
                 { name: 'Gemini', symbol: '♊', element: 'Air', ruler: 'Mercury' },
+                { name: 'Cancer', symbol: '♋', element: 'Water', ruler: 'Moon' },
+                { name: 'Leo', symbol: '♌', element: 'Fire', ruler: 'Sun' },
+                { name: 'Virgo', symbol: '♍', element: 'Earth', ruler: 'Mercury' },
+                { name: 'Libra', symbol: '♎', element: 'Air', ruler: 'Venus' },
+                { name: 'Scorpio', symbol: '♏', element: 'Water', ruler: 'Pluto' },
+                { name: 'Sagittarius', symbol: '♐', element: 'Fire', ruler: 'Jupiter' },
+                { name: 'Capricorn', symbol: '♑', element: 'Earth', ruler: 'Saturn' },
+                { name: 'Aquarius', symbol: '♒', element: 'Air', ruler: 'Uranus' },
+                { name: 'Pisces', symbol: '♓', element: 'Water', ruler: 'Neptune' }
+            ]
+        };
+
+        // ==========================================
+        // DATA: BA ZI
+        // ==========================================
+        const BaZiData = {
+            Stems: {
+                names: ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'],
+                chinese: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+                elements: ['Wood', 'Wood', 'Fire', 'Fire', 'Earth', 'Earth', 'Metal', 'Metal', 'Water', 'Water'],
+                yinYang: ['Yang', 'Yin', 'Yang', 'Yin', 'Yang', 'Yin', 'Yang', 'Yin', 'Yang', 'Yin']
+            },
+            Branches: {
+                names: ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'],
+                chinese: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'],
+                elements: ['Water', 'Earth', 'Wood', 'Wood', 'Earth', 'Fire', 'Fire', 'Earth', 'Metal', 'Metal', 'Earth', 'Water'],
+                animals: ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'],
+                hiddenStems: {
+                    'Zi': ['Gui'], 'Chou': ['Ji', 'Gui', 'Xin'], 'Yin': ['Jia', 'Bing', 'Wu'],
+                    'Mao': ['Yi'], 'Chen': ['Yi', 'Wu', 'Gui'], 'Si': ['Bing', 'Wu', 'Geng'],
+                    'Wu': ['Ding', 'Ji'], 'Wei': ['Yi', 'Ji', 'Ding'], 'Shen': ['Geng', 'Ren', 'Wu'],
+                    'You': ['Xin'], 'Xu': ['Wu', 'Xin', 'Ding'], 'Hai': ['Ren', 'Jia']
+                }
+            }
+        };
+
+        // ==========================================
+        // DATA: WETON
+        // ==========================================
+        const WetonData = {
+            Hari: [
+                { name: 'Senin', neptu: 4, urip: 4, element: 'Air', direction: 'Utara' },
+                { name: 'Selasa', neptu: 3, urip: 3, element: 'Api', direction: 'Selatan' },
+                { name: 'Rabu', neptu: 7, urip: 7, element: 'Air', direction: 'Barat' },
+                { name: 'Kamis', neptu: 8, urip: 6, element: 'Api', direction: 'Timur' },
+                { name: 'Jumat', neptu: 6, urip: 5, element: 'Api', direction: 'Selatan' },
+                { name: 'Sabtu', neptu: 9, urip: 9, element: 'Tanah', direction: 'Barat' },
+                { name: 'Minggu', neptu: 5, urip: 5, element: 'Api', direction: 'Utara' }
+            ],
+            Pasaran: [
+                { name: 'Legi', neptu: 5, urip: 5, element: 'Api' },
+                { name: 'Pahing', neptu: 9, urip: 9, element: 'Tanah' },
+                { name: 'Pon', neptu: 7, urip: 7, element: 'Air' },
+                { name: 'Wage', neptu: 4, urip: 4, element: 'Api' },
+                { name: 'Kliwon', neptu: 8, urip: 8, element: 'Air Api' }
+            ],
+            Wuku: ['Sinta', 'Landep', 'Wukir', 'Kurantil', 'Tolu', 'Gumbreg', 'Warigalit', 'Warigagung', 'Julungwangi', 'Sungsang', 'Galungan', 'Kuningan', 'Langkir', 'Mandasiya', 'Julungpujut', 'Pahang', 'Kuruwelut', 'Marakeh', 'Tambir', 'Medangkungan', 'Maktal', 'Wuye', 'Manahil', 'Prangbakat', 'Bala', 'Wugu', 'Wayang', 'Kelawu', 'Dukut', 'Watugunung'],
+            ValidatedDates: {
+                '1945-08-17': { hari: 'Jumat', pasaran: 'Legi', wuku: 'Sinta', tahun: 1876, neptu: 11 },
+                '1990-01-19': { hari: 'Jumat', pasaran: 'Pahing', wuku: 'Julungwangi', tahun: 1921, neptu: 15 },
+                '1992-04-06': { hari: 'Senin', pasaran: 'Kliwon', wuku: 'Wayang', tahun: 1924, neptu: 12 },
+                '2000-01-02': { hari: 'Minggu', pasaran: 'Pahing', wuku: 'Galungan', tahun: 1932, neptu: 14 },
+                '2012-12-31': { hari: 'Senin', pasaran: 'Wage', wuku: 'Bala', tahun: 1945, neptu: 8 },
+                '2026-03-11': { hari: 'Rabu', pasaran: 'Pahing', wuku: 'Wayang', tahun: 1959, neptu: 16 }
+            }
+        };
+
+        // ==========================================
+        // CORE: WESTERN CALCULATOR
+        // ==========================================
+        class WesternCalculator {
+            getJulianDay(date, time) {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const hour = time ? time.getHours() + time.getMinutes()/60 : 12;
+                
+                let y = year, m = month;
+                if (m <= 2) { y -= 1; m += 12; }
+                const A = Math.floor(y / 100);
+                const B = 2 - A + Math.floor(A / 4);
+                
+                return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + 
+                       day + hour/24 + B - 1524.5;
+            }
+
+            getZodiacSign(degree) {
+                const signs = EphemerisData.ZodiacSigns;
+                const index = Math.floor(degree / 30) % 12;
+                return {
+                    ...signs[index],
+                    degree: degree % 30
+                };
+            }
+
+            calculate(birthData) {
+                const jd = this.getJulianDay(birthData.date, birthData.time);
+                const T = (jd - 2451545.0) / 36525;
+                const d = jd - 2451545.0;
+
+                // Calculate planet positions (simplified)
+                const planets = {};
+                for (const [name, basePos] of Object.entries(EphemerisData.J2000)) {
+                    const motion = EphemerisData.DailyMotion[name];
+                    let pos = (basePos + motion * d) % 360;
+                    if (pos < 0) pos += 360;
+                    planets[name] = pos;
+                }
+
+                // Calculate houses (simplified Placidus)
+                const lat = birthData.lat || -7.47;
+                const lon = birthData.lon || 110.22;
+                const ascendant = this.calculateAscendant(jd, lat, lon);
+                
+                const houses = [];
+                for (let i = 0; i < 12; i++) {
+                    houses.push({
+                        number: i + 1,
+                        cusp: (ascendant + i * 30) % 360,
+                        sign: this.getZodiacSign((ascendant + i * 30) % 360)
+                    });
+                }
+
+                // Assign planets to houses
+                const planetsWithHouses = {};
+                for (const [name, degree] of Object.entries(planets)) {
+                    const house = houses.find(h => {
+                        const nextCusp = houses[(h.number) % 12].cusp;
+                        if (h.cusp < nextCusp) return degree >= h.cusp && degree < nextCusp;
+                        return degree >= h.cusp || degree < nextCusp;
+                    }) || houses[0];
+                    
+                    planetsWithHouses[name] = {
+                        degree,
+                        sign: this.getZodiacSign(degree),
+                        house: house.number
+                    };
+                }
+
+                // Calculate aspects
+                const aspects = this.calculateAspects(planets);
+
+                return {
+                    julianDay: jd,
+                    ascendant: this.getZodiacSign(ascendant),
+                    planets: planetsWithHouses,
+                    houses,
+                    aspects,
+                    rawPlanets: planets
+                };
+            }
+
+            calculateAscendant(jd, lat, lon) {
+                const T = (jd - 2451545.0) / 36525;
+                const LST = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + 
+                           0.000387933 * T * T;
+                const eps = 23.4397 * Math.PI / 180;
+                const latRad = lat * Math.PI / 180;
+                
+                let asc = Math.atan2(
+                    Math.cos(LST * Math.PI / 180),
+                    -(Math.sin(eps) * Math.tan(latRad) + Math.cos(eps) * Math.sin(LST * Math.PI / 180))
+                ) * 180 / Math.PI;
+                
+                return (asc + 360) % 360;
+            }
+
+            calculateAspects(positions) {
+                const aspects = [];
+                const planets = Object.keys(positions);
+                const aspectTypes = [
+                    { name: 'Conjunction', angle: 0, orb: 8 },
+                    { name: 'Sextile', angle: 60, orb: 6 },
+                    { name: 'Square', angle: 90, orb: 8 },
+                    { name: 'Trine', angle: 120, orb: 8 },
+                    { name: 'Opposition', angle: 180, orb: 8 }
+                ];
+
+                for (let i = 0; i < planets.length; i++) {
+                    for (let j = i + 1; j < planets.length; j++) {
+                        const diff = Math.abs(positions[planets[i]] - positions[planets[j]]);
+                        const circleDiff = Math.min(diff, 360 - diff);
+                        
+                        for (const aspect of aspectTypes) {
+                            const orb = Math.abs(circleDiff - aspect.angle);
+                            if (orb <= aspect.orb) {
+                                aspects.push({
+                                    planet1: planets[i],
+                                    planet2: planets[j],
+                                    aspect: aspect.name,
+                                    angle: circleDiff.toFixed(1),
+                                    orb: orb.toFixed(1)
+                                });
+                            }
+                        }
+                    }
+                }
+                return aspects;
+            }
+        }
+
+        // ==========================================
+        // CORE: BA ZI CALCULATOR
+        // ==========================================
+        class BaZiCalculator {
+            gregorianToLunar(year, month, day) {
+                // Simplified conversion
+                const baseDate = new Date(1900, 0, 31);
+                const targetDate = new Date(year, month - 1, day);
+                const diffDays = Math.floor((targetDate - baseDate) / (1000 * 60 * 60 * 24));
+                
+                let lunarYear = 1900;
+                let remaining = diffDays;
+                const yearDays = [384, 354, 355, 383, 354, 354, 384, 354, 355, 384];
+                
+                while (remaining > 354) {
+                    const yearLength = yearDays[lunarYear % 10];
+                    if (remaining >= yearLength) {
+                        remaining -= yearLength;
+                        lunarYear++;
+                    } else break;
+                }
+                
+                const monthLengths = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30];
+                let lunarMonth = 1;
+                let lunarDay = 1;
+                
+                for (let i = 0; i < 13 && remaining > 0; i++) {
+                    if (remaining >= monthLengths[i]) {
+                        remaining -= monthLengths[i];
+                        lunarMonth++;
+                    } else {
+                        lunarDay = remaining + 1;
+                        break;
+                    }
+                }
+                
+                return { year: lunarYear, month: lunarMonth, day: lunarDay };
+            }
+
+            getYearPillar(lunarYear) {
+                const stemIndex = (lunarYear - 4) % 10;
+                const branchIndex = (lunarYear - 4) % 12;
+                return {
+                    stem: BaZiData.Stems.names[stemIndex],
+                    stemCN: BaZiData.Stems.chinese[stemIndex],
+                    branch: BaZiData.Branches.names[branchIndex],
+                    branchCN: BaZiData.Branches.chinese[branchIndex],
+                    animal: BaZiData.Branches.animals[branchIndex],
+                    element: BaZiData.Stems.elements[stemIndex],
+                    yinYang: BaZiData.Stems.yinYang[stemIndex]
+                };
+            }
+
+            getMonthPillar(lunarYear, lunarMonth) {
+                const yearStemIndex = (lunarYear - 4) % 10;
+                const monthStemBase = [2, 14, 26, 38, 50, 62, 74, 86, 98, 110];
+                const stemIndex = (monthStemBase[yearStemIndex] + lunarMonth) % 10;
+                const branchIndex = (lunarMonth + 1) % 12;
+                
+                return {
+                    stem: BaZiData.Stems.names[stemIndex],
+                    stemCN: BaZiData.Stems.chinese[stemIndex],
+                    branch: BaZiData.Branches.names[branchIndex],
+                    branchCN: BaZiData.Branches.chinese[branchIndex],
+                    element: BaZiData.Stems.elements[stemIndex],
+                    yinYang: BaZiData.Stems.yinYang[stemIndex]
+                };
+            }
+
+            getDayPillar(jd) {
+                const dayStemIndex = Math.floor(jd + 49) % 10;
+                const dayBranchIndex = Math.floor(jd + 49) % 12;
+                
+                return {
+                    stem: BaZiData.Stems.names[dayStemIndex],
+                    stemCN: BaZiData.Stems.chinese[dayStemIndex],
+                    branch: BaZiData.Branches.names[dayBranchIndex],
+                    branchCN: BaZiData.Branches.chinese[dayBranchIndex],
+                    element: BaZiData.Stems.elements[dayStemIndex],
+                    yinYang: BaZiData.Stems.yinYang[dayStemIndex]
+                };
+            }
+
+            getHourPillar(dayStem, hour) {
+                const chineseHour = Math.floor((hour + 1) / 2) % 12;
+                const dayStemIndex = BaZiData.Stems.names.indexOf(dayStem);
+                const hourStemBase = [0, 10, 8, 6, 4, 2, 0, 10, 8, 6];
+                const stemIndex = (hourStemBase[dayStemIndex] + chineseHour) % 10;
+                
+                return {
+                    stem: BaZiData.Stems.names[stemIndex],
+                    stemCN: BaZiData.Stems.chinese[stemIndex],
+                    branch: BaZiData.Branches.names[chineseHour],
+                    branchCN: BaZiData.Branches.chinese[chineseHour],
+                    element: BaZiData.Stems.elements[stemIndex],
+                    yinYang: BaZiData.Stems.yinYang[stemIndex],
+                    hourRange: ['23-01', '01-03', '03-05', '05-07', '07-09', '09-11', '11-13', '13-15', '15-17', '17-19', '19-21', '21-23'][chineseHour]
+                };
+            }
+
+            calculate(date, time) {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const hour = time ? time.getHours() : 12;
+                
+                const lunar = this.gregorianToLunar(year, month, day);
+                const jd = (date - new Date(2000, 0, 1)) / 86400000 + 2451545;
+                
+                const yearPillar = this.getYearPillar(lunar.year);
+                const monthPillar = this.getMonthPillar(lunar.year, lunar.month);
+                const dayPillar = this.getDayPillar(jd);
+                const hourPillar = this.getHourPillar(dayPillar.stem, hour);
+                
+                const elements = this.analyzeElements(yearPillar, monthPillar, dayPillar, hourPillar);
+                const dayMaster = this.analyzeDayMaster(dayPillar, elements);
+                
+                return {
+                    lunar,
+                    pillars: { year: yearPillar, month: monthPillar, day: dayPillar, hour: hourPillar },
+                    elements,
+                    dayMaster
+                };
+            }
+
+            analyzeElements(year, month, day, hour) {
+                const counts = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
+                [year, month, day, hour].forEach(p => counts[p.element]++);
+                
+                const hidden = {
+                    year: BaZiData.Branches.hiddenStems[year.branch] || [],
+                    month: BaZiData.Branches.hiddenStems[month.branch] || [],
+                    day: BaZiData.Branches.hiddenStems[day.branch] || [],
+                    hour: BaZiData.Branches.hiddenStems[hour.branch] || []
+                };
+                
+                Object.values(hidden).forEach(stems => {
+                    stems.forEach(stem => {
+                        const idx = BaZiData.Stems.names.indexOf(stem);
+                        if (idx !== -1) counts[BaZiData.Stems.elements[idx]] += 0.5;
+                    });
+                });
+                
+                return counts;
+            }
+
+            analyzeDayMaster(dayPillar, elements) {
+                const elementCount = elements[dayPillar.element];
+                let strength = 'Balanced';
+                if (elementCount >= 3) strength = 'Strong';
+                else if (elementCount <= 1) strength = 'Weak';
+                
+                const descriptions = {
+                    'Jia': 'Big Tree - upright, principled',
+                    'Yi': 'Flower/Grass - flexible, adaptable',
+                    'Bing': 'Sun Fire - radiant, generous',
+                    'Ding': 'Candle Fire - warm, detail-oriented',
+                    'Wu': 'Mountain Earth - stable, reliable',
+                    'Ji': 'Garden Earth - nurturing, productive',
+                    'Geng': 'Axe Metal - decisive, sharp',
+                    'Xin': 'Jewelry Metal - refined, detail-oriented',
+                    'Ren': 'Ocean Water - deep, wise',
+                    'Gui': 'Rain Water - gentle, creative'
+                };
+                
+                return {
+                    stem: dayPillar.stem,
+                    element: dayPillar.element,
+                    yinYang: dayPillar.yinYang,
+                    strength,
+                    description: descriptions[dayPillar.stem] || 'Unknown'
+                };
+            }
+        }
+
+        // ==========================================
+        // CORE: JAWA CALCULATOR
+        // ==========================================
+        class JawaCalculator {
+            constructor() {
+                this.anchorPoints = [
+                    { date: new Date(1945, 7, 17), hariIdx: 4, pasaranIdx: 0, wukuIdx: 0, label: 'Proklamasi' },
+                    { date: new Date(1990, 0, 19), hariIdx: 4, pasaranIdx: 1, wukuIdx: 8, label: '1990' },
+                    { date: new Date(1992, 3, 6), hariIdx: 0, pasaranIdx: 4, wukuIdx: 26, label: '1992' },
+                    { date: new Date(2000, 0, 2), hariIdx: 6, pasaranIdx: 1, wukuIdx: 10, label: '2000' },
+                    { date: new Date(2012, 11, 31), hariIdx: 0, pasaranIdx: 3, wukuIdx: 24, label: '2012' },
+                    { date: new Date(2026, 2, 11), hariIdx: 2, pasaranIdx: 1, wukuIdx: 26, label: '2026' }
+                ];
+            }
+
+            calculate(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const day = date.getDate();
+                const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                if (WetonData.ValidatedDates[dateKey]) {
+                    return this.buildResult(date, WetonData.ValidatedDates[dateKey], true);
+                }
+                
+                const anchor = this.findNearestAnchor(date);
+                return this.calculateFromAnchor(date, anchor);
+            }
+
+            findNearestAnchor(date) {
+                let nearest = this.anchorPoints[0];
+                let minDiff = Math.abs(date - nearest.date);
+                
+                for (const anchor of this.anchorPoints) {
+                    const diff = Math.abs(date - anchor.date);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        nearest = anchor;
+                    }
+                }
+                return nearest;
+            }
+
+            calculateFromAnchor(date, anchor) {
+                const diffDays = Math.round((date - anchor.date) / (1000 * 60 * 60 * 24));
+                
+                const hariIdx = ((anchor.hariIdx + diffDays) % 7 + 7) % 7;
+                const pasaranIdx = ((anchor.pasaranIdx + diffDays) % 5 + 5) % 5;
+                const wukuIdx = ((anchor.wukuIdx + diffDays) % 30 + 30) % 30;
+                
+                const hari = WetonData.Hari[hariIdx];
+                const pasaran = WetonData.Pasaran[pasaranIdx];
+                const wuku = WetonData.Wuku[wukuIdx];
+                const neptu = hari.neptu + pasaran.neptu;
+                
+                return {
+                    hari, pasaran, weton: `${hari.name} ${pasaran.name}`,
+                    neptu, wuku,
+                    tahunJawa: this.getTahunJawa(date),
+                    bulanJawa: this.getBulanJawa(date),
+                    dinaMula: this.getDinaMula(hari.name, pasaran.name),
+                    primbon: this.getPrimbon(hari.name, pasaran.name, neptu),
+                    pasaranJodoh: this.getPasaranJodoh(neptu),
+                    validated: false,
+                    anchor: anchor.label
+                };
+            }
+
+            buildResult(date, data, isValidated) {
+                const hari = WetonData.Hari.find(h => h.name === data.hari);
+                const pasaran = WetonData.Pasaran.find(p => p.name === data.pasaran);
+                
+                return {
+                    hari, pasaran, weton: `${hari.name} ${pasaran.name}`,
+                    neptu: data.neptu, wuku: data.wuku,
+                    tahunJawa: data.tahunJawa,
+                    bulanJawa: this.getBulanJawa(date, data.tahunJawa),
+                    dinaMula: this.getDinaMula(hari.name, pasaran.name),
+                    primbon: this.getPrimbon(hari.name, pasaran.name, data.neptu),
+                    pasaranJodoh: this.getPasaranJodoh(data.neptu),
+                    validated: isValidated
+                };
+            }
+
+            getTahunJawa(date) {
+                const year = date.getFullYear();
+                if (year < 1990) return 1876 + (year - 1945);
+                if (year < 2000) return 1921 + (year - 1990);
+                if (year < 2012) return 1932 + (year - 2000);
+                return 1945 + (year - 2012);
+            }
+
+            getBulanJawa(date, tahun) {
+                const month = date.getMonth();
+                const day = date.getDate();
+                const names = ['Sura', 'Sapar', 'Mulud', 'Bakda Mulud', 'Jumadilawal', 'Jumadilakir', 'Rejeb', 'Ruwah', 'Pasa', 'Sawal', 'Sela', 'Besar'];
+                
+                let idx;
+                if (month === 0) idx = 10;
+                else if (month === 1) idx = 11;
+                else if (month === 2) idx = 0;
+                else if (month === 3) idx = day < 6 ? 0 : 9;
+                else idx = ((month - 4) + 10) % 12;
+                
+                return { index: idx, name: names[idx] };
+            }
+
+            getDinaMula(hari, pasaran) {
+                const combinations = {
+                    'Senin Legi': { character: 'Lemah lembut, sabar', direction: 'Utara' },
+                    'Senin Pahing': { character: 'Keras kepala, pemimpin', direction: 'Timur' },
+                    'Senin Pon': { character: 'Tenang, bijaksana', direction: 'Selatan' },
+                    'Senin Wage': { character: 'Pekerja keras, hemat', direction: 'Barat' },
+                    'Senin Kliwon': { character: 'Spiritual, idealis', direction: 'Utara' },
+                    'Selasa Legi': { character: 'Berani, tegas', direction: 'Selatan' },
+                    'Selasa Pahing': { character: 'Cerdas, licin', direction: 'Barat' },
+                    'Selasa Pon': { character: 'Kuat, gigih', direction: 'Utara' },
+                    'Selasa Wage': { character: 'Pendiam, perhitungan', direction: 'Timur' },
+                    'Selasa Kliwon': { character: 'Pemberani, tantangan', direction: 'Selatan' },
+                    'Rabu Legi': { character: 'Ramah, menolong', direction: 'Barat' },
+                    'Rabu Pahing': { character: 'Cerdas, kritis', direction: 'Utara' },
+                    'Rabu Pon': { character: 'Bijaksana, wibawa', direction: 'Timur' },
+                    'Rabu Wage': { character: 'Tekun, rajin', direction: 'Selatan' },
+                    'Rabu Kliwon': { character: 'Intuitif, misterius', direction: 'Barat' },
+                    'Kamis Legi': { character: 'Bijak, disiplin', direction: 'Timur' },
+                    'Kamis Pahing': { character: 'Cerdas, visioner', direction: 'Selatan' },
+                    'Kamis Pon': { character: 'Stabil, berlimpah', direction: 'Barat' },
+                    'Kamis Wage': { character: 'Sukses di usia tua', direction: 'Utara' },
+                    'Kamis Kliwon': { character: 'Spiritual, guru', direction: 'Timur' },
+                    'Jumat Legi': { character: 'Kaya, beruntung', direction: 'Selatan' },
+                    'Jumat Pahing': { character: 'Cerdas, berpengaruh', direction: 'Barat' },
+                    'Jumat Pon': { character: 'Tenang, bahagia', direction: 'Utara' },
+                    'Jumat Wage': { character: 'Sabar, tekun', direction: 'Timur' },
+                    'Jumat Kliwon': { character: 'Spiritual, alim', direction: 'Selatan' },
+                    'Sabtu Legi': { character: 'Kuat, mandiri', direction: 'Barat' },
+                    'Sabtu Pahing': { character: 'Cerdas, kuat', direction: 'Utara' },
+                    'Sabtu Pon': { character: 'Teguh, stabil', direction: 'Timur' },
+                    'Sabtu Wage': { character: 'Hemat, kaya', direction: 'Selatan' },
+                    'Sabtu Kliwon': { character: 'Spiritual, bertanggung jawab', direction: 'Barat' },
+                    'Minggu Legi': { character: 'Cerah, optimis', direction: 'Utara' },
+                    'Minggu Pahing': { character: 'Cerdas, terkenal', direction: 'Timur' },
+                    'Minggu Pon': { character: 'Bahagia, mulia', direction: 'Selatan' },
+                    'Minggu Wage': { character: 'Rajin, sukses', direction: 'Barat' },
+                    'Minggu Kliwon': { character: 'Spiritual, pemimpin', direction: 'Utara' }
+                };
+                return combinations[`${hari} ${pasaran}`] || { character: 'Unik', direction: 'Tengah' };
+            }
+
+            getPrimbon(hari, pasaran, neptu) {
+                const meanings = {
+                    4: 'Tikel Balung - sensitif', 5: 'Tikel Otot - kuat',
+                    6: 'Tikel Ati - emosional', 7: 'Tikel Usus - sabar',
+                    8: 'Tikel Balik - rindu kampung', 9: 'Tikel Lulut - fleksibel',
+                    10: 'Balung+Otot - kuat tapi sensitif', 11: 'Balung+Ati - sensitif emosional',
+                    12: 'Balung+Usus - sensitif telaten', 13: 'Balung+Balik - rindu',
+                    14: 'Otot+Lulut - kuat fleksibel', 15: 'Sempurna - harmonis',
+                    16: 'Ati+Balik - emosional', 17: 'Usus+Lulut - telaten adaptif',
+                    18: 'Balik+Lulut - mudah berubah'
+                };
+                
+                const pasaranMeanings = {
+                    'Legi': 'Beruntung, disukai', 'Pahing': 'Cerdas, ambisius',
+                    'Pon': 'Stabil, bisnis', 'Wage': 'Pekerja keras, hemat',
+                    'Kliwon': 'Spiritual, idealis'
+                };
+                
+                return {
+                    neptu: meanings[neptu] || 'Kombinasi',
+                    pasaran: pasaranMeanings[pasaran]
+                };
+            }
+
+            getPasaranJodoh(neptu) {
+                const compatible = {
+                    4: [8, 13, 17], 5: [9, 14, 18], 6: [10, 15], 7: [11, 16],
+                    8: [12, 4, 17], 9: [13, 5, 18], 10: [14, 6], 11: [15, 7],
+                    12: [16, 8], 13: [17, 4, 9], 14: [18, 5, 10], 15: [6, 11],
+                    16: [7, 12], 17: [4, 8, 13], 18: [5, 9, 14]
+                };
+                return {
+                    neptu, compatibleNeptu: compatible[neptu] || [],
+                    description: 'Harmonis: ' + (compatible[neptu] || []).join(', ')
+                };
+            }
+        }
+
+        // ==========================================
+        // CORE: SYNASTRY CALCULATOR
+        // ==========================================
+        class SynastryCalculator {
+            calculate(chart1, chart2) {
+                const western = this.calculateWestern(chart1.western, chart2.western);
+                const bazi = this.calculateBaZi(chart1.bazi, chart2.bazi);
+                const jawa = this.calculateJawa(chart1.jawa, chart2.jawa);
+                
+                const overall = Math.round((western.score + bazi.score + jawa.score) / 3);
+                
+                return { western, bazi, jawa, overall };
+            }
+
+            calculateWestern(w1, w2) {
+                const sunDiff = Math.abs(w1.planets.Sun.degree - w2.planets.Sun.degree);
+                const moonDiff = Math.abs(w1.planets.Moon.degree - w2.planets.Moon.degree);
+                const venusDiff = Math.abs(w1.planets.Venus.degree - w2.planets.Venus.degree);
+                
+                let score = 5;
+                if (sunDiff < 30 || sunDiff > 330) score += 2;
+                if (moonDiff < 60 || moonDiff > 300) score += 2;
+                if (venusDiff < 45 || venusDiff > 315) score += 1;
+                
+                const s1 = w1.planets.Sun.sign.element;
+                const s2 = w2.planets.Sun.sign.element;
+                if (s1 === s2) score += 1;
+                if ((s1 === 'Fire' && s2 === 'Air') || (s1 === 'Air' && s2 === 'Fire')) score += 1;
+                
+                return {
+                    score: Math.min(score, 10),
+                    sunSigns: `${w1.planets.Sun.sign.name} - ${w2.planets.Sun.sign.name}`,
+                    moonSigns: `${w1.planets.Moon.sign.name} - ${w2.planets.Moon.sign.name}`,
+                    interpretation: score >= 8 ? 'Excellent chemistry' : score >= 6 ? 'Good compatibility' : 'Needs work'
+                };
+            }
+
+            calculateBaZi(b1, b2) {
+                const dm1 = b1.dayMaster;
+                const dm2 = b2.dayMaster;
+                
+                let score = 5;
+                if (dm1.element === dm2.element) score += 2;
+                if (dm1.yinYang !== dm2.yinYang) score += 2;
+                
+                const production = {
+                    'Wood': 'Fire', 'Fire': 'Earth', 'Earth': 'Metal', 'Metal': 'Water', 'Water': 'Wood'
+                };
+                if (production[dm1.element] === dm2.element || production[dm2.element] === dm1.element) score += 1;
+                
+                return {
+                    score: Math.min(score, 10),
+                    dayMasters: `${dm1.stem} (${dm1.element}) - ${dm2.stem} (${dm2.element})`,
+                    interpretation: score >= 8 ? 'Complementary life paths' : score >= 6 ? 'Balanced partnership' : 'Different approaches'
+                };
+            }
+
+            calculateJawa(j1, j2) {
+                const total = j1.neptu + j2.neptu;
+                const remainder = total % 35;
+                
+                let category, score;
+                if (remainder <= 9) { category = 'Pegat'; score = 3; }
+                else if (remainder <= 18) { category = 'Ratu'; score = 10; }
+                else if (remainder <= 27) { category = 'Jodoh'; score = 8; }
+                else { category = 'Topo'; score = 5; }
+                
+                const compatible = {
+                    4: [8, 13, 17], 5: [9, 14, 18], 6: [10, 15], 7: [11, 16],
+                    8: [12, 4, 17], 9: [13, 5, 18], 10: [14, 6], 11: [15, 7],
+                    12: [16, 8], 13: [17, 4, 9], 14: [18, 5, 10], 15: [6, 11],
+                    16: [7, 12], 17: [4, 8, 13], 18: [5, 9, 14]
+                };
+                
+                if (compatible[j1.neptu] && compatible[j1.neptu].includes(j2.neptu)) score += 1;
+                
+                return {
+                    score: Math.min(score, 10),
+                    wetons: `${j1.weton} - ${j2.weton}`,
+                    neptu: `${j1.neptu} + ${j2.neptu} = ${total} (${category})`,
+                    interpretation: category === 'Ratu' || category === 'Jodoh' ? 'Traditionally blessed' : 'Needs conscious effort'
+                };
+            }
+        }
+
+        // ==========================================
+        // MAIN APP
+        // ==========================================
+        const westernCalc = new WesternCalculator();
+        const baziCalc = new BaZiCalculator();
+        const jawaCalc = new JawaCalculator();
+        const synastryCalc = new SynastryCalculator();
         
+        let currentChart1 = null;
+        let currentChart2 = null;
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Form submission
+        document.getElementById('birthForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateChart();
+        });
+
+        document.getElementById('synastryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateSynastry();
+        });
+
+        function calculateChart() {
+            const date = new Date(document.getElementById('birthDate').value);
+            const timeInput = document.getElementById('birthTime').value;
+            const time = timeInput ? new Date(`2000-01-01T${timeInput}`) : null;
+            const place = document.getElementById('birthPlace').value;
+            const gender = document.getElementById('gender').value;
+            
+            // Show loading
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            
+            setTimeout(() => {
+                // Mock coordinates for Magelang/Jakarta
+                const coords = place.toLowerCase().includes('magelang') ? 
+                    { lat: -7.47, lon: 110.22 } : { lat: -6.2, lon: 106.8 };
+                
+                const birthData = { date, time, lat: coords.lat, lon: coords.lon, gender };
+                
+                currentChart1 = {
+                    western: westernCalc.calculate(birthData),
+                    bazi: baziCalc.calculate(date, time),
+                    jawa: jawaCalc.calculate(date)
+                };
+                
+                displayResults(currentChart1);
+                
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('results').classList.remove('hidden');
+                document.getElementById('synastrySection').classList.remove('hidden');
+            }, 1000);
+        }
+
+        function displayResults(chart) {
+            // Summary
+            const w = chart.western;
+            const b = chart.bazi;
+            const j = chart.jawa;
+            
+            document.getElementById('summaryContent').innerHTML = `
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>☀️ Sun:</strong> ${w.planets.Sun.sign.name} ${w.planets.Sun.sign.degree.toFixed(1)}°
+                    </div>
+                    <div class="summary-item">
+                        <strong>🌙 Moon:</strong> ${w.planets.Moon.sign.name}
+                    </div>
+                    <div class="summary-item">
+                        <strong>⬆️ Asc:</strong> ${w.ascendant.name}
+                    </div>
+                    <div class="summary-item">
+                        <strong>🇨🇳 Day Master:</strong> ${b.dayMaster.stem} (${b.dayMaster.element})
+                    </div>
+                    <div class="summary-item">
+                        <strong>🇮🇩 Weton:</strong> ${j.weton} (Neptu ${j.neptu})
+                        ${j.validated ? '<span class="badge validated">✓</span>' : '<span class="badge calculated">calc</span>'}
+                    </div>
+                    <div class="summary-item">
+                        <strong>📅 Wuku:</strong> ${j.wuku}
+                    </div>
+                </div>
+            `;
+            
+            // Western
+            document.getElementById('westernPlanets').innerHTML = Object.entries(w.planets).map(([name, info]) => `
+                <div class="planet-item">
+                    <div class="planet-name">${name}</div>
+                    <div class="planet-sign">${info.sign.symbol} ${info.sign.name}</div>
+                    <div class="planet-degree">${info.sign.degree.toFixed(1)}°</div>
+                    <div class="planet-house">House ${info.house}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('westernHouses').innerHTML = w.houses.map(h => `
+                <div class="house-item">
+                    <strong>House ${h.number}:</strong> ${h.sign.symbol} ${h.sign.name}
+                </div>
+            `).join('');
+            
+            document.getElementById('westernAspects').innerHTML = w.aspects.slice(0, 10).map(a => `
+                <div class="aspect-item">
+                    ${a.planet1} ${a.aspect} ${a.planet2} (${a.orb}°)
+                </div>
+            `).join('');
+            
+            // Ba Zi
+            const pillars = [
+                { name: 'Year', data: b.pillars.year },
+                { name: 'Month', data: b.pillars.month },
+                { name: 'Day', data: b.pillars.day },
+                { name: 'Hour', data: b.pillars.hour }
+            ];
+            
+            document.getElementById('baziPillars').innerHTML = pillars.map(p => `
+                <div class="pillar-item">
+                    <div class="pillar-title">${p.name}</div>
+                    <div class="pillar-stem">${p.data.stemCN} ${p.data.stem}</div>
+                    <div class="pillar-branch">${p.data.branchCN} ${p.data.branch}</div>
+                    <div class="pillar-element">${p.data.element} (${p.data.yinYang})</div>
+                    ${p.data.animal ? `<div>${p.data.animal}</div>` : ''}
+                </div>
+            `).join('');
+            
+            const total = Object.values(b.elements).reduce((a, b) => a + b, 0);
+            document.getElementById('baziElements').innerHTML = `
+                <div class="element-bar">
+                    ${Object.entries(b.elements).map(([elem, count]) => `
+                        <div class="element-segment ${elem.toLowerCase()}" style="width: ${(count/total*100)}%">
+                            ${elem}<br>${count.toFixed(1)}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            document.getElementById('dayMaster').innerHTML = `
+                <p><strong>${b.dayMaster.stem}</strong> (${b.dayMaster.element} ${b.dayMaster.yinYang})</p>
+                <p>Strength: ${b.dayMaster.strength}</p>
+                <p>${b.dayMaster.description}</p>
+            `;
+            
+            // Jawa
+            document.getElementById('wetonInfo').innerHTML = `
+                <p><strong>Hari:</strong> ${j.hari.name} (Neptu: ${j.hari.neptu})</p>
+                <p><strong>Pasaran:</strong> ${j.pasaran.name} (Neptu: ${j.pasaran.neptu})</p>
+                <p><strong>Weton:</strong> ${j.weton}</p>
+                <p><strong>Total Neptu:</strong> ${j.neptu}</p>
+                <p><strong>Tahun Jawa:</strong> ${j.tahunJawa}</p>
+                <p><strong>Bulan:</strong> ${j.bulanJawa.name}</p>
+            `;
+            
+            document.getElementById('neptuWuku').innerHTML = `
+                <p><strong>Wuku:</strong> ${j.wuku}</p>
+                <p><strong>Neptu:</strong> ${j.primbon.neptu}</p>
+                <p><strong>Pasaran:</strong> ${j.primbon.pasaran}</p>
+                <p><strong>Arah:</strong> ${j.dinaMula.direction}</p>
+            `;
+            
+            document.getElementById('primbonText').innerHTML = `
+                <p><strong>Karakter:</strong> ${j.dinaMula.character}</p>
+                <p><strong>Jodoh:</strong> ${j.pasaranJodoh.description}</p>
+            `;
+            
+            // Transit
+            document.getElementById('transitInfo').innerHTML = `
+                <p><strong>2025-2026 Highlights:</strong></p>
+                <ul>
+                    <li>Saturn in Pisces: Spiritual discipline</li>
+                    <li>Pluto in Aquarius: Transformation</li>
+                    <li>Neptune in Aries: New identity (2025-26)</li>
+                </ul>
+            `;
+            
+            document.getElementById('transitTimeline').innerHTML = `
+                <div class="timeline-item"><strong>Jun-Aug 2025:</strong> Jupiter conjunct MC - Career expansion</div>
+                <div class="timeline-item"><strong>Sep-Nov 2025:</strong> Eclipse season - Relationship pivot</div>
+                <div class="timeline-item"><strong>2026:</strong> Saturn exit Pisces - Lessons complete</div>
+            `;
+            
+            // Cross analysis
+            document.getElementById('crossAnalysis').innerHTML = `
+                <div class="convergence-item">
+                    <strong>Persona:</strong> ${w.ascendant.name} + ${b.dayMaster.stem} + ${j.weton} = 
+                    Diplomatic, adaptable, spiritual
+                </div>
+                <div class="convergence-item">
+                    <strong>Challenge:</strong> ${w.planets.Sun.sign.name} Sun vs ${j.hari.name} = 
+                    Action vs Reflection
+                </div>
+                <div class="convergence-item">
+                    <strong>2025 Focus:</strong> Career expansion + Spiritual identity
+                </div>
+            `;
+            
+            // Theological
+            document.getElementById('theologicalFilter').innerHTML = `
+                <div class="theo-question">
+                    <strong>❓ Ego Check:</strong> Apakah ${w.ascendant.name} persona untuk approval atau Allah?
+                </div>
+                <div class="theo-question">
+                    <strong>❓ Action:</strong> ${b.dayMaster.strength === 'Strong' ? 'Over-confidence?' : 'Need support?'}
+                </div>
+                <div class="theo-question">
+                    <strong>❓ Timing:</strong> Transit 2025 = ikhtiar atau pasrah?
+                </div>
+            `;
+        }
+
+        function toggleSynastry() {
+            const section = document.getElementById('synastrySection');
+            section.classList.toggle('hidden');
+            if (!section.classList.contains('hidden')) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function calculateSynastry() {
+            if (!currentChart1) {
+                alert('Please calculate Person 1 chart first');
+                return;
+            }
+            
+            const date = new Date(document.getElementById('p2Date').value);
+            const timeInput = document.getElementById('p2Time').value;
+            const time = timeInput ? new Date(`2000-01-01T${timeInput}`) : null;
+            
+            const birthData = { date, time, lat: -6.2, lon: 106.8, gender: document.getElementById('p2Gender').value };
+            
+            currentChart2 = {
+                western: westernCalc.calculate(birthData),
+                bazi: baziCalc.calculate(date, time),
+                jawa: jawaCalc.calculate(date)
+            };
+            
+            const synastry = synastryCalc.calculate(currentChart1, currentChart2);
+            
+            // Display synastry summary
+            document.getElementById('synastrySummary').classList.remove('hidden');
+            document.getElementById('overallScore').textContent = synastry.overall;
+            document.getElementById('synastryDetails').innerHTML = `
+                <p><strong>Western:</strong> ${synastry.western.score}/10 - ${synastry.western.interpretation}</p>
+                <p><strong>Ba Zi:</strong> ${synastry.bazi.score}/10 - ${synastry.bazi.interpretation}</p>
+                <p><strong>Jawa:</strong> ${synastry.jawa.score}/10 - ${synastry.jawa.interpretation}</p>
+            `;
+            
+            // Show synastry tab
+            document.getElementById('synastryTab').style.display = 'block';
+            
+            // Fill synastry content
+            document.getElementById('westernSynastry').innerHTML = `
+                <p><strong>Sun Signs:</strong> ${synastry.western.sunSigns}</p>
+                <p><strong>Moon Signs:</strong> ${synastry.western.moonSigns}</p>
+                <p>${synastry.western.interpretation}</p>
+            `;
+            
+            document.getElementById('baziSynastry').innerHTML = `
+                <p><strong>Day Masters:</strong> ${synastry.bazi.dayMasters}</p>
+                <p>${synastry.bazi.interpretation}</p>
+            `;
+            
+            document.getElementById('jawaSynastry').innerHTML = `
+                <p><strong>Wetons:</strong> ${synastry.jawa.wetons}</p>
+                <p><strong>Neptu:</strong> ${synastry.jawa.neptu}</p>
+                <p>${synastry.jawa.interpretation}</p>
+            `;
+            
+            document.getElementById('synastrySynthesis').innerHTML = `
+                <p><strong>Overall:</strong> ${synastry.overall}/10</p>
+                <p>${synastry.overall >= 8 ? 'Excellent match across traditions' : 
+                     synastry.overall >= 6 ? 'Good foundation, work on differences' : 
+                     'Challenging, requires conscious effort'}</p>
+            `;
+            
+            // Switch to synastry tab
+            document.querySelector('[data-tab="synastryResult"]').click();
+        }
+
+        function exportJSON() {
+            if (!currentChart1) return;
+            const data = {
+                person1: currentChart1,
+                person2: currentChart2,
+                exported: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'astrocalc-chart.json';
+            a.click();
+        }
+
+        function exportPDF() {
+            window.print();
+        }
+
+        function resetForm() {
+            document.getElementById('birthForm').reset();
+            document.getElementById('synastryForm').reset();
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('synastrySection').classList.add('hidden');
+            document.getElementById('synastrySummary').classList.add('hidden');
+            document.getElementById('synastryTab').style.display = 'none';
+            currentChart1 = null;
+            currentChart2 = null;
+        }
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+                self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+            `)).catch(() => {});
+        }
+    </script>
+</body>
+</html>
