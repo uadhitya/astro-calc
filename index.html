@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroCalc - Multi-Tradisi</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="theme-color" content="#1a237e">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌙 AstroCalc</h1>
+            <p class="subtitle">Astrologi Barat • Ba Zi • Primbon Jawa</p>
+            <p class="disclaimer">Ikhtiar mengenal diri, bukan prediksi takdir</p>
+        </header>
+
+        <main>
+            <!-- Input Form -->
+            <section class="input-section">
+                <h2>Data Kelahiran</h2>
+                <form id="birthForm">
+                    <div class="form-group">
+                        <label for="birthDate">Tanggal Lahir</label>
+                        <input type="date" id="birthDate" required min="1900-01-01" max="2050-12-31">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthTime">Waktu Lahir</label>
+                        <input type="time" id="birthTime" required>
+                        <small>Kosongkan jika tidak tahu (gunakan 12:00)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthPlace">Lokasi Lahir</label>
+                        <input type="text" id="birthPlace" placeholder="Contoh: Magelang, Indonesia" required>
+                        <small>Untuk perhitungan koordinat dan timezone</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required>
+                            <option value="male">Laki-laki</option>
+                            <option value="female">Perempuan</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="icon">🔮</span> Hitung Chart
+                    </button>
+                </form>
+            </section>
+
+            <!-- Loading -->
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Menghitung posisi planet...</p>
+            </div>
+
+            <!-- Results -->
+            <section id="results" class="hidden">
+                <!-- Summary Card -->
+                <div class="card summary-card">
+                    <h3>📊 Ringkasan</h3>
+                    <div id="summaryContent"></div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="western">🌞 Barat</button>
+                    <button class="tab-btn" data-tab="bazi">🇨🇳 Ba Zi</button>
+                    <button class="tab-btn" data-tab="jawa">🇮🇩 Jawa</button>
+                    <button class="tab-btn" data-tab="transit">🚀 Transit</button>
+                </div>
+
+                <!-- Western Astrology -->
+                <div id="western" class="tab-content active">
+                    <div class="card">
+                        <h4>Planet Positions</h4>
+                        <div id="westernPlanets" class="planet-grid"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Houses</h4>
+                        <div id="westernHouses"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Aspects</h4>
+                        <div id="westernAspects"></div>
+                    </div>
+                </div>
+
+                <!-- Ba Zi -->
+                <div id="bazi" class="tab-content">
+                    <div class="card">
+                        <h4>Empat Pilar (四柱)</h4>
+                        <div id="baziPillars" class="pillars-grid"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Analisis Elemen</h4>
+                        <div id="baziElements"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Day Master Analysis</h4>
+                        <div id="dayMaster"></div>
+                    </div>
+                </div>
+
+                <!-- Jawa -->
+                <div id="jawa" class="tab-content">
+                    <div class="card">
+                        <h4>Weton</h4>
+                        <div id="wetonInfo"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Neptu & Wuku</h4>
+                        <div id="neptuWuku"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Primbon Interpretasi</h4>
+                        <div id="primbonText"></div>
+                    </div>
+                </div>
+
+                <!-- Transit -->
+                <div id="transit" class="tab-content">
+                    <div class="card">
+                        <h4>Transit 2025-2026</h4>
+                        <div id="transitInfo"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Timeline Kritis</h4>
+                        <div id="transitTimeline"></div>
+                    </div>
+                </div>
+
+                <!-- Cross-Tradisi Analysis -->
+                <div class="card cross-analysis">
+                    <h3>🔍 Konvergensi Multi-Tradisi</h3>
+                    <div id="crossAnalysis"></div>
+                </div>
+
+                <!-- Theological Filter -->
+                <div class="card theological">
+                    <h3>🕌 Filter Teologis</h3>
+                    <div id="theologicalFilter"></div>
+                </div>
+
+                <!-- Export -->
+                <div class="export-section">
+                    <button onclick="exportJSON()" class="btn-secondary">📥 Export JSON</button>
+                    <button onclick="exportPDF()" class="btn-secondary">📄 Print PDF</button>
+                    <button onclick="shareChart()" class="btn-secondary">🔗 Share</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built with ❤️ for ikhtiar | <a href="https://github.com/yourusername/astro-calc">GitHub</a></p>
+            <p class="small">Data astronomis: Swiss Ephemeris (simplified) | Kalender: Al-Mnk API</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data/ephemeris.js"></script>
+    <script src="js/data/stems-branches.js"></script>
+    <script src="js/data/weton-data.js"></script>
+    <script src="js/core/calculator.js"></script>
+    <script src="js/core/western.js"></script>
+    <script src="js/core/bazi.js"></script>
+    <script src="js/core/jawa.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
