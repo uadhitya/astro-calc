@@ -3,10 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AstroCalc - Multi-Tradisi</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="css/style.css">
+    <title>AstroCalc - Multi-Tradisi Astrology</title>
     <meta name="theme-color" content="#1a237e">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQXN0cm9DYWxjIiwic2hvcnRfbmFtZSI6IkFzdHJvQ2FsYyIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWEyMzdlIiwidGhlbWVfY29sb3IiOiIjMWEyMzdlIn0=">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --secondary: #c62828;
+            --accent: #ffd700;
+            --bg: #f5f5f5;
+            --card: #ffffff;
+            --text: #212121;
+            --text-light: #757575;
+            --border: #e0e0e0;
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 0 0 30px 30px;
+            margin: -20px -20px 30px -20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .disclaimer {
+            font-size: 0.85em;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .input-section {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        small {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-light);
+            font-size: 0.85em;
+        }
+
+        .btn-primary, .btn-secondary {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--card);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin: 5px;
+            width: auto;
+            flex: 1;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card h3, .card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 15px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .planet-grid, .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .planet-item, .pillar-item {
+            background: var(--bg);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .planet-name, .pillar-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9em;
+        }
+
+        .planet-sign, .pillar-content {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .planet-degree, .pillar-hidden {
+            font-size: 0.85em;
+            color: var(--text-light);
+        }
+
+        .element-bar {
+            display: flex;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .element-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .wood { background: #4caf50; }
+        .fire { background: #ff5722; }
+        .earth { background: #795548; }
+        .metal { background: #607d8b; }
+        .water { background: #2196f3; }
+
+        .cross-analysis {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-left: 4px solid var(--accent);
+        }
+
+        .theological {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-left: 4px solid #4caf50;
+        }
+
+        .synastry-section {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd9);
+            border-left: 4px solid #e91e63;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .export-section {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge.validated {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge.calculated {
+            background: var(--warning);
+            color: white;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0% 75%, var(--border) 75% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .score-value {
+            position: relative;
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .aspect-item, .house-item {
+            padding: 8px;
+            background: var(--bg);
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            background: var(--bg);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2em; }
+            .tabs { flex-wrap: nowrap; }
+            .tab-btn { font-size: 0.85em; padding: 10px; }
+            .export-section { flex-direction: column; }
+            .btn-secondary { width: 100%; }
+            .planet-grid, .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media print {
+            .input-section, .tabs, .export-section, footer, .synastry-input { display: none; }
+            .tab-content { display: block !important; }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -19,7 +380,7 @@
         <main>
             <!-- Input Form -->
             <section class="input-section">
-                <h2>Data Kelahiran</h2>
+                <h2>Data Kelahiran Person 1</h2>
                 <form id="birthForm">
                     <div class="form-group">
                         <label for="birthDate">Tanggal Lahir</label>
@@ -28,13 +389,13 @@
                     
                     <div class="form-group">
                         <label for="birthTime">Waktu Lahir</label>
-                        <input type="time" id="birthTime" required>
-                        <small>Kosongkan jika tidak tahu (gunakan 12:00)</small>
+                        <input type="time" id="birthTime">
+                        <small>Kosongkan jika tidak tahu (default: 12:00)</small>
                     </div>
                     
                     <div class="form-group">
                         <label for="birthPlace">Lokasi Lahir</label>
-                        <input type="text" id="birthPlace" placeholder="Contoh: Magelang, Indonesia" required>
+                        <input type="text" id="birthPlace" placeholder="Contoh: Magelang, Indonesia" value="Magelang, Indonesia">
                         <small>Untuk perhitungan koordinat dan timezone</small>
                     </div>
                     
@@ -52,6 +413,39 @@
                 </form>
             </section>
 
+            <!-- Synastry Toggle -->
+            <section class="input-section synastry-input hidden" id="synastrySection">
+                <h2>💕 Synastry - Person 2</h2>
+                <form id="synastryForm">
+                    <div class="form-group">
+                        <label for="p2Date">Tanggal Lahir Person 2</label>
+                        <input type="date" id="p2Date" required min="1900-01-01" max="2050-12-31">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="p2Time">Waktu Lahir</label>
+                        <input type="time" id="p2Time">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="p2Place">Lokasi Lahir</label>
+                        <input type="text" id="p2Place" placeholder="Contoh: Jakarta, Indonesia">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="p2Gender">Gender</label>
+                        <select id="p2Gender">
+                            <option value="female">Perempuan</option>
+                            <option value="male">Laki-laki</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="background: #e91e63;">
+                        <span class="icon">💕</span> Hitung Kompatibilitas
+                    </button>
+                </form>
+            </section>
+
             <!-- Loading -->
             <div id="loading" class="hidden">
                 <div class="spinner"></div>
@@ -62,8 +456,17 @@
             <section id="results" class="hidden">
                 <!-- Summary Card -->
                 <div class="card summary-card">
-                    <h3>📊 Ringkasan</h3>
+                    <h3>📊 Ringkasan Person 1</h3>
                     <div id="summaryContent"></div>
+                </div>
+
+                <!-- Synastry Summary (if calculated) -->
+                <div id="synastrySummary" class="card synastry-section hidden">
+                    <h3>💕 Hasil Synastry</h3>
+                    <div class="score-circle">
+                        <span class="score-value" id="overallScore">0</span>
+                    </div>
+                    <div id="synastryDetails"></div>
                 </div>
 
                 <!-- Tabs -->
@@ -72,6 +475,7 @@
                     <button class="tab-btn" data-tab="bazi">🇨🇳 Ba Zi</button>
                     <button class="tab-btn" data-tab="jawa">🇮🇩 Jawa</button>
                     <button class="tab-btn" data-tab="transit">🚀 Transit</button>
+                    <button class="tab-btn" data-tab="synastryResult" id="synastryTab" style="display:none;">💕 Synastry</button>
                 </div>
 
                 <!-- Western Astrology -->
@@ -109,7 +513,7 @@
                 <!-- Jawa -->
                 <div id="jawa" class="tab-content">
                     <div class="card">
-                        <h4>Weton</h4>
+                        <h4>Weton Lengkap</h4>
                         <div id="wetonInfo"></div>
                     </div>
                     <div class="card">
@@ -134,6 +538,26 @@
                     </div>
                 </div>
 
+                <!-- Synastry Result -->
+                <div id="synastryResult" class="tab-content">
+                    <div class="card">
+                        <h4>Western Synastry</h4>
+                        <div id="westernSynastry"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Ba Zi Compatibility</h4>
+                        <div id="baziSynastry"></div>
+                    </div>
+                    <div class="card">
+                        <h4>Jawa Compatibility</h4>
+                        <div id="jawaSynastry"></div>
+                    </div>
+                    <div class="card synastry-section">
+                        <h4>Synthesis & Recommendation</h4>
+                        <div id="synastrySynthesis"></div>
+                    </div>
+                </div>
+
                 <!-- Cross-Tradisi Analysis -->
                 <div class="card cross-analysis">
                     <h3>🔍 Konvergensi Multi-Tradisi</h3>
@@ -150,31 +574,38 @@
                 <div class="export-section">
                     <button onclick="exportJSON()" class="btn-secondary">📥 Export JSON</button>
                     <button onclick="exportPDF()" class="btn-secondary">📄 Print PDF</button>
-                    <button onclick="shareChart()" class="btn-secondary">🔗 Share</button>
+                    <button onclick="toggleSynastry()" class="btn-secondary" style="background: #e91e63; color: white; border-color: #e91e63;">💕 Synastry</button>
+                    <button onclick="resetForm()" class="btn-secondary">🔄 Reset</button>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>Built with ❤️ for ikhtiar | <a href="https://github.com/yourusername/astro-calc">GitHub</a></p>
-            <p class="small">Data astronomis: Swiss Ephemeris (simplified) | Kalender: Al-Mnk API</p>
+            <p>Built with ❤️ for ikhtiar | Data validated: almnk.com</p>
+            <p class="small">Anchor: 1945, 1990, 1992, 2000, 2012, 2026</p>
         </footer>
     </div>
 
-    <!-- Scripts -->
-    <script src="js/data/ephemeris.js"></script>
-    <script src="js/data/stems-branches.js"></script>
-    <script src="js/data/weton-data.js"></script>
-    <script src="js/core/calculator.js"></script>
-    <script src="js/core/western.js"></script>
-    <script src="js/core/bazi.js"></script>
-    <script src="js/core/jawa.js"></script>
-    <script src="js/app.js"></script>
+    <!-- ALL JAVASCRIPT IN ONE FILE -->
     <script>
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
-    </script>
-</body>
-</html>
+        // ==========================================
+        // DATA: EPHEMERIS
+        // ==========================================
+        const EphemerisData = {
+            J2000: {
+                Sun: 280.46646, Moon: 218.31617, Mercury: 252.25084,
+                Venus: 181.97973, Mars: 355.43300, Jupiter: 34.35148,
+                Saturn: 50.07744, Uranus: 314.05500, Neptune: 304.34866,
+                Pluto: 238.92881
+            },
+            DailyMotion: {
+                Sun: 0.98564736, Moon: 13.17639646, Mercury: 4.092338,
+                Venus: 1.602130, Mars: 0.524033, Jupiter: 0.083091,
+                Saturn: 0.033444, Uranus: 0.011728, Neptune: 0.005981,
+                Pluto: 0.003978
+            },
+            ZodiacSigns: [
+                { name: 'Aries', symbol: '♈', element: 'Fire', ruler: 'Mars' },
+                { name: 'Taurus', symbol: '♉', element: 'Earth', ruler: 'Venus' },
+                { name: 'Gemini', symbol: '♊', element: 'Air', ruler: 'Mercury' },
+        
