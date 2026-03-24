@@ -1,0 +1,310 @@
+:root {
+    --primary: #1a237e;
+    --primary-light: #534bae;
+    --secondary: #c62828;
+    --accent: #ffd700;
+    --bg: #f5f5f5;
+    --card: #ffffff;
+    --text: #212121;
+    --text-light: #757575;
+    --border: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 0;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    border-radius: 0 0 30px 30px;
+    margin: -20px -20px 30px -20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.disclaimer {
+    font-size: 0.85em;
+    margin-top: 10px;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* Form */
+.input-section {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+small {
+    display: block;
+    margin-top: 5px;
+    color: var(--text-light);
+    font-size: 0.85em;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--card);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    margin: 5px;
+    width: auto;
+    flex: 1;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h3, .card h4 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 15px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Grids */
+.planet-grid, .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.planet-item, .pillar-item {
+    background: var(--bg);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.planet-name, .pillar-title {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.9em;
+}
+
+.planet-sign, .pillar-content {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+.planet-degree, .pillar-hidden {
+    font-size: 0.85em;
+    color: var(--text-light);
+}
+
+/* Elements visualization */
+.element-bar {
+    display: flex;
+    height: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.element-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.wood { background: #4caf50; }
+.fire { background: #ff5722; }
+.earth { background: #795548; }
+.metal { background: #607d8b; }
+.water { background: #2196f3; }
+
+/* Cross analysis */
+.cross-analysis {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border-left: 4px solid var(--accent);
+}
+
+.theological {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-left: 4px solid #4caf50;
+}
+
+/* Loading */
+#loading {
+    text-align: center;
+    padding: 50px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Export section */
+.export-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .tabs {
+        flex-wrap: nowrap;
+    }
+    
+    .tab-btn {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    
+    .export-section {
+        flex-direction: column;
+    }
+    
+    .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* Print styles */
+@media print {
+    .input-section, .tabs, .export-section, footer {
+        display: none;
+    }
+    
+    .tab-content {
+        display: block !important;
+    }
+}
